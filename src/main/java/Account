@@ -1,0 +1,39 @@
+abstract class Account{
+    private long number;
+    Client client;
+    private double amount;
+
+    public void setNumber(long number){
+        this.number = number;
+    }
+
+    public long getNumber(){
+        return number;
+    }
+
+    public void setClient(Client client){
+        this.client = client;
+    }
+
+    public Client getClient(){
+        return client;
+    }
+
+    public void setAmoount(double amount){
+        this.amount = amount;
+    }
+
+    public double getAmount(){
+        return amount;
+    }
+
+    public abstract void openAccount();
+        
+    public abstract void transfer();
+    
+    public abstract void deposit();
+
+    public abstract void withdraw();
+
+    public abstract void endAccount();
+}
