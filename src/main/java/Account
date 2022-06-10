@@ -3,37 +3,30 @@ abstract class Account{
     Client client;
     private double amount;
 
-    public void setNumber(long number){
+    public Account(long number, Client client){
         this.number = number;
+        this.client = client;
     }
 
     public long getNumber(){
         return number;
     }
 
-    public void setClient(Client client){
-        this.client = client;
-    }
-
     public Client getClient(){
         return client;
-    }
-
-    public void setAmoount(double amount){
-        this.amount = amount;
     }
 
     public double getAmount(){
         return amount;
     }
 
-    public abstract void openAccount();
+    public abstract void openAccount(Client client);
         
-    public abstract void transfer();
+    public abstract void transfer(Client client);
     
-    public abstract void deposit();
+    public abstract void deposit(Client client);
 
-    public abstract void withdraw();
+    public abstract void withdraw(Client client);
 
-    public abstract void endAccount();
+    public abstract void endAccount(Client client);
 }
