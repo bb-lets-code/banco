@@ -1,11 +1,11 @@
 public class SavingsAccount extends Account {
     private double inccome;
 
+
     public SavingsAccount(Client client, long number) {
         super( number, client);
-        this.inccome = 0;
+        
     }
-
     @Override
     public boolean openAccount() {
         if(client instanceof ClientePF){
@@ -31,7 +31,7 @@ public class SavingsAccount extends Account {
 
     @Override
     public boolean withdraw(double value) {
-        if(this.amount >= value){
+        if(this.amount + this.inccome >= value){
             if (this.client instanceof ClientePF){
                 this.amount -= value;
             }else if ( this.client instanceof ClientePJ){
@@ -42,13 +42,13 @@ public class SavingsAccount extends Account {
             System.out.println("Saldo insuficiente");
             return false;
         }
-
     }
 
     @Override
     public boolean endAccount() {
+        this.amount = 0.0;
+        this.inccome = 0.0;
         return true;
-        
     }
 
     @Override
@@ -71,6 +71,10 @@ public class SavingsAccount extends Account {
             System.out.println("Conta não encontrada");
             return false;
         }
+    }
+
+    public String totalBalance(){
+        return "Saldo: " + this.amount + " | Rendimento: " + this.inccome;
     }
 
 }
