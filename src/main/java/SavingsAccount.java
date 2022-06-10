@@ -4,16 +4,15 @@ public class SavingsAccount extends Account {
 
     public SavingsAccount(Client client, long number) {
         super( number, client);
-        
     }
     @Override
     public boolean openAccount() {
-        if(client instanceof ClientePF){
+        if(getClient() instanceof ClientePF){
             this.inccome = 0.0;
-            this.amount = 0.0;
+            setAmount(0.0);
             return true;
-        }else if(client instanceof ClientePJ){
-            System.out.println("Não é possível abrir conta para Pessoa Jurídica");
+        }else if(getClient() instanceof ClientePJ){
+            System.out.println("Não é possível abrir Conta Poupança para Pessoa Jurídica");
             return false;
         }
         return false;
@@ -22,8 +21,10 @@ public class SavingsAccount extends Account {
 
     @Override
     public boolean deposit(double value) {
-        this.amount += value;
-        this.inccome += (this.amount * 0.05);
+        double amountTemp = getAmount();
+        amountTemp += value;
+        setAmount(amountTemp);
+        this.inccome += (getAmount() * 0.05);
         return true;
     }
         
@@ -31,11 +32,16 @@ public class SavingsAccount extends Account {
 
     @Override
     public boolean withdraw(double value) {
-        if(this.amount + this.inccome >= value){
-            if (this.client instanceof ClientePF){
-                this.amount -= value;
-            }else if ( this.client instanceof ClientePJ){
-                this.amount -= value + (value * 0.05);
+        if(getAmount() + this.inccome >= value){
+            if (getClient() instanceof ClientePF){
+                double amountTemp = getAmount();
+                amountTemp -= value;
+                setAmount(amountTemp);
+            }else if ( getClient() instanceof ClientePJ){
+                double amountTemp = getAmount();
+                amountTemp -= value + (value * 0.05);
+                setAmount( amountTemp);
+
             }
             return true;
         }else{
@@ -46,24 +52,26 @@ public class SavingsAccount extends Account {
 
     @Override
     public boolean endAccount() {
-        this.amount = 0.0;
+        setAmount(0.0);
         this.inccome = 0.0;
         return true;
     }
 
     @Override
-    public boolean transfer( long toAccount, double value) {
+    public boolean transfer( long toAccount  , double value) {
 
-        if(toAccount == 0){
-            if(this.amount < value){
+        if(toAccount != 0){
+            if(getAmount() < value){
                 System.out.println("Saldo insuficiente");
             }else{
-                if( client instanceof ClientePJ){
-                    this.amount -= (value + value*0.05);
-                    
-                }else if(client instanceof ClientePF){
-                    this.amount -= value;
-                    
+                if( getClient() instanceof ClientePJ){
+                    double amountTemp = getAmount();
+                    amountTemp -= (value + value*0.05);
+                    setAmount(amountTemp);
+                }else if(getClient() instanceof ClientePF){
+                    double amountTemp = getAmount();
+                    amountTemp -= value;
+                    setAmount(amountTemp);
                 }
             }
             return true;
@@ -74,7 +82,7 @@ public class SavingsAccount extends Account {
     }
 
     public String totalBalance(){
-        return "Saldo: " + this.amount + " | Rendimento: " + this.inccome;
+        return "Saldo: " + getAmount() + " | Rendimento: " + this.inccome + " | Total: " + (getAmount() + this.inccome);
     }
 
 }
