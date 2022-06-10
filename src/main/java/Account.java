@@ -1,7 +1,7 @@
 abstract class Account {
     private long number;
-    protected Client client;
-    protected double amount;
+    private Client client;
+    private double amount;
 
     public Account(long number, Client client){
         this.number = number;
@@ -20,6 +20,9 @@ abstract class Account {
         return amount;
     }
 
+    protected void setAmount(double amount){
+        this.amount = amount;
+    }
     
 
     public abstract boolean openAccount();
