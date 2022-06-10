@@ -1,6 +1,6 @@
 abstract class Account {
     private long number;
-    private Client client;
+    protected Client client;
     protected double amount;
 
     public Account(long number, Client client){
@@ -20,13 +20,15 @@ abstract class Account {
         return amount;
     }
 
-    public abstract void openAccount(Client client);
-        
-    public abstract void transfer(Client client , Account toAccount , double value);
     
-    public abstract void deposit(double value);
 
-    public abstract void withdraw(Client client);
+    public abstract boolean openAccount();
+        
+    public abstract boolean transfer( long account , double value);
+    
+    public abstract boolean deposit(double value);
 
-    public abstract void endAccount(Client client);
+    public abstract boolean withdraw(double value);
+
+    public abstract boolean endAccount();
 }
