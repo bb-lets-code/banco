@@ -22,9 +22,9 @@ abstract class Account{
 
     public abstract void openAccount(Client client);
         
-    public abstract void transfer(Client client);
+    public abstract void transfer(Client client , Account toAccount , double value);
     
-    public abstract void deposit(Client client);
+    public abstract void deposit(double value);
 
     public abstract void withdraw(Client client);
 
