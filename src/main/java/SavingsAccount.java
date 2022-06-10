@@ -1,5 +1,7 @@
+import java.math.BigDecimal;
+
 public class SavingsAccount extends Account {
-    private double inccome;
+    private BigDecimal inccome;
 
 
     public SavingsAccount(Client client, long number) {
@@ -8,7 +10,7 @@ public class SavingsAccount extends Account {
     @Override
     public boolean openAccount() {
         if(getClient() instanceof ClientePF){
-            this.inccome = 0.0;
+            this.inccome = new BigDecimal(0);
             setAmount(0.0);
             return true;
         }else if(getClient() instanceof ClientePJ){
@@ -24,7 +26,9 @@ public class SavingsAccount extends Account {
         double amountTemp = getAmount();
         amountTemp += value;
         setAmount(amountTemp);
-        this.inccome += (getAmount() * 0.05);
+        double incomeTemp = this.inccome.doubleValue();
+        incomeTemp += (getAmount() * 0.05);
+        this.inccome = BigDecimal.valueOf(incomeTemp);
         return true;
     }
         
@@ -32,7 +36,7 @@ public class SavingsAccount extends Account {
 
     @Override
     public boolean withdraw(double value) {
-        if(getAmount() + this.inccome >= value){
+        if(getAmount() + this.inccome.doubleValue() >= value){
             if (getClient() instanceof ClientePF){
                 double amountTemp = getAmount();
                 amountTemp -= value;
@@ -53,7 +57,7 @@ public class SavingsAccount extends Account {
     @Override
     public boolean endAccount() {
         setAmount(0.0);
-        this.inccome = 0.0;
+        this.inccome = BigDecimal.valueOf(0);
         return true;
     }
 
@@ -82,7 +86,7 @@ public class SavingsAccount extends Account {
     }
 
     public String totalBalance(){
-        return "Saldo: " + getAmount() + " | Rendimento: " + this.inccome + " | Total: " + (getAmount() + this.inccome);
+        return "Saldo: " + getAmount() + " | Rendimento: " + this.inccome + " | Total: " + (getAmount() + this.inccome.doubleValue());
     }
 
 }
