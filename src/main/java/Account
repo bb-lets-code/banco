@@ -1,7 +1,7 @@
-abstract class Account{
+abstract class Account {
     private long number;
-    Client client;
-    private double amount;
+    private Client client;
+    protected double amount;
 
     public Account(long number, Client client){
         this.number = number;
