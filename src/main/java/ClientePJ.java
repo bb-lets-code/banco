@@ -3,7 +3,8 @@ public class ClientePJ extends Client{
     private Double transferWithdrawIncomeRate;
     private Double savingsIncomeRate;
 
-    public ClientePJ(String cnpj, Double transferWithdrawIncomeRate, Double savingsIncomeRate){
+    public ClientePJ(String cnpj, String nomeCliente, Double transferWithdrawIncomeRate, Double savingsIncomeRate){
+        super(nomeCliente);
         this.cnpj = cnpj;
         this.transferWithdrawIncomeRate = transferWithdrawIncomeRate;
         this.savingsIncomeRate  = savingsIncomeRate;
