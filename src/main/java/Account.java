@@ -2,6 +2,7 @@ abstract class Account {
     private long number;
     private Client client;
     private double amount;
+    private final Double transferWithdrawTax = 0.005;
 
     public Account(long number, Client client){
         this.number = number;
@@ -22,6 +23,10 @@ abstract class Account {
 
     protected void setAmount(double amount){
         this.amount = amount;
+    }
+
+    public Double getTransferWithdrawTax() {
+        return transferWithdrawTax;
     }
     
 
