@@ -31,7 +31,7 @@ abstract class Account {
     
     public abstract boolean transfer(Account toAccount , double value);
     
-    public abstract boolean deposit(double value);s
+    public abstract boolean deposit(double value);
 
     public abstract boolean withdraw(double value);
 }
