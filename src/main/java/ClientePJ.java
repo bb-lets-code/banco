@@ -1,24 +1,21 @@
 public class ClientePJ extends Client{
     private String cnpj;
-    private Double transferWithdrawIncomeRate;
-    private Double savingsIncomeRate;
+    private final Double transferWithdrawTax = 0.005;
+    private final Double investmentBonus = 0.02;
 
-    public ClientePJ(String cnpj, String nomeCliente, Double transferWithdrawIncomeRate, Double savingsIncomeRate){
+    public ClientePJ(String cnpj, String nomeCliente){
         super(nomeCliente);
         this.cnpj = cnpj;
-        this.transferWithdrawIncomeRate = transferWithdrawIncomeRate;
-        this.savingsIncomeRate  = savingsIncomeRate;
     }
 
     public String getCnpj() {
         return cnpj;
     }
 
-    public Double getTransferWithdrawIncomeRate() {
-        return transferWithdrawIncomeRate;
+    public Double getInvestmentBonus() {
+        return investmentBonus;
     }
-
-    public Double getSavingsIncomeRate() {
-        return savingsIncomeRate;
+    public Double getTransferWithdrawTax() {
+        return transferWithdrawTax;
     }
 }

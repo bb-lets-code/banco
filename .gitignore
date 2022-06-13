@@ -1,4 +1,4 @@
-target/classes/ClientePJ.class
-target/classes/ClientePF.class
-target/classes/Account.class
-target/classes/SavingsAccount.class
+
+.idea/
+target/
+
