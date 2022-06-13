@@ -7,9 +7,10 @@ public class SavingsAccount extends Account {
 
     public SavingsAccount(Client client, long number) {
         super( number, client);
-        if( client instanceof ClientePJ){
+        if( client instanceof ClientePJ ){
             throw new IllegalArgumentException("Cliente PJ não pode ter conta de poupança");
         }
+
         this.inccome = BigDecimal.valueOf(0);
         
     }
@@ -22,9 +23,6 @@ public class SavingsAccount extends Account {
     private BigDecimal investment(BigDecimal value) {
         return value.multiply(interestRate);
     }
-
-
-    
 
 
     @Override
@@ -52,8 +50,7 @@ public class SavingsAccount extends Account {
             setAmount(amountTemp);
             return true;
         }else{
-            System.out.println("Saldo insuficiente");
-            return false;
+            throw new IllegalArgumentException("Saldo insuficiente");
         }
     }
     
@@ -79,8 +76,8 @@ public class SavingsAccount extends Account {
         return "R$ " + this.inccome.toString();
     }
 
-    public String totalBalance(){
-        return "Saldo: " + getAmount() + " | Rendimento: " + this.inccome + " | Total: " + (getAmount() + this.inccome.doubleValue());
+    private String totalBalance(){
+        return "N° da Conta: "+ this.getNumber() +" Saldo: " + getAmount() + " | Rendimento: " + this.inccome + " | Total: " + (getAmount() + this.inccome.doubleValue());
     }
 
 
@@ -101,6 +98,7 @@ public class SavingsAccount extends Account {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return super.toString();
+
+        return totalBalance();
     }
 }
