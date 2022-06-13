@@ -13,8 +13,8 @@ public class InvestimentAccount extends Account {
 
     @Override
     public boolean deposit(double value) {
-       invest(value);
-       return true;
+        invest(value);
+        return true;
     }
 
     public void invest(double value){
@@ -56,9 +56,11 @@ public class InvestimentAccount extends Account {
     }
 
     @Override
-    public boolean transfer( long toAccount  , double value) {
-        if(toAccount != 0){
-            return withdrawMoney(value);
+    public boolean transfer( Account toAccount  , double value) {
+        if(toAccount.getNumber() != 0){
+            withdrawMoney(value);
+            toAccount.deposit(value);
+            return true;
         } else {
             System.out.println("Conta não encontrada");
             return false;
