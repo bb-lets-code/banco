@@ -1,3 +1,4 @@
+import model.Client;
 import service.ClientService;
 
 import java.util.ArrayList;
@@ -7,10 +8,9 @@ import java.util.Scanner;
 
 public class Application {
     static List<Account> accounts = new ArrayList<Account>();
-    static  Client client;
+    static Client client;
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-
         int optionMenu;
 
 

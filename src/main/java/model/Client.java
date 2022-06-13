@@ -1,6 +1,6 @@
 package model;
 
-abstract class Client{
+public abstract class Client{
     private String fullName;
 
     public Client(String fullName) {
