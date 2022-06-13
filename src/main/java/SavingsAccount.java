@@ -50,15 +50,16 @@ public class SavingsAccount extends Account {
     }
     
     @Override
-    public boolean transfer( long toAccount  , double value) {
+    public boolean transfer( Account toAccount  , double value) {
         
-        if(toAccount != 0){
+        if(toAccount != null){
             if(getAmount() < value){
                 throw new IllegalArgumentException("Saldo insuficiente");
             }else{
                 double amountTemp = getAmount();
                 amountTemp -= value;
                 setAmount(amountTemp);
+                toAccount.deposit(value);
                 return true;
             }
         }else{
@@ -77,16 +78,16 @@ public class SavingsAccount extends Account {
 
 
 
-    @Override
-    public boolean openAccount() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-    @Override
-    public boolean endAccount() {
-        // TODO Auto-generated method stub
-        return false;
-    }
+    // @Override
+    // public boolean openAccount() {
+    //     // TODO Auto-generated method stub
+    //     return false;
+    // }
+    // @Override
+    // public boolean endAccount() {
+    //     // TODO Auto-generated method stub
+    //     return false;
+    // }
 
 
     //TODO: criar toString
