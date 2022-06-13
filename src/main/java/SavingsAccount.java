@@ -2,7 +2,7 @@ import java.math.BigDecimal;
 
 public class SavingsAccount extends Account {
     private BigDecimal inccome;
-    private BigDecimal interestRate = BigDecimal.valueOf(0.005);
+    private final BigDecimal interestRate = BigDecimal.valueOf(0.005);
 
 
     public SavingsAccount(Client client, long number) {
@@ -15,10 +15,6 @@ public class SavingsAccount extends Account {
         
     }
 
-    //TODO: receber o valor da classe mãe
-    public BigDecimal getInterestRate() {
-        return interestRate;
-    }
 
     private BigDecimal investment(BigDecimal value) {
         return value.multiply(interestRate);
@@ -28,10 +24,9 @@ public class SavingsAccount extends Account {
     @Override
     public boolean deposit(double value) {
         if(value > 0){
-            double amountTemp = getAmount();
-            amountTemp += value;
-            setAmount(amountTemp);
-            // double incomeTemp = this.inccome.doubleValue();
+            BigDecimal amountTemp = BigDecimal.valueOf(getAmount());
+            amountTemp = amountTemp.add(BigDecimal.valueOf(value));
+            setAmount(amountTemp.doubleValue());
             BigDecimal incomeTemp = BigDecimal.valueOf(value);
             this.inccome =  this.inccome.add(investment(incomeTemp));
             return true;
@@ -62,7 +57,7 @@ public class SavingsAccount extends Account {
                 throw new IllegalArgumentException("Saldo insuficiente");
             }else{
                 double amountTemp = getAmount();
-                amountTemp -= (value + value*0.05);
+                amountTemp -= value;
                 setAmount(amountTemp);
                 return true;
             }
