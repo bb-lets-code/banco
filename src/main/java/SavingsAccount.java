@@ -2,34 +2,44 @@ import java.math.BigDecimal;
 
 public class SavingsAccount extends Account {
     private BigDecimal inccome;
+    private BigDecimal interestRate = BigDecimal.valueOf(0.005);
 
 
     public SavingsAccount(Client client, long number) {
         super( number, client);
-    }
-    @Override
-    public boolean openAccount() {
-        if(getClient() instanceof ClientePF){
-            this.inccome = new BigDecimal(0);
-            setAmount(0.0);
-            return true;
-        }else if(getClient() instanceof ClientePJ){
-            System.out.println("Não é possível abrir Conta Poupança para Pessoa Jurídica");
-            return false;
+        if( client instanceof ClientePJ){
+            throw new IllegalArgumentException("Cliente PJ não pode ter conta de poupança");
         }
-        return false;
+        this.inccome = BigDecimal.valueOf(0);
+        
     }
+
+    //TODO: receber o valor da classe mãe
+    public BigDecimal getInterestRate() {
+        return interestRate;
+    }
+
+    private BigDecimal investment(BigDecimal value) {
+        return value.multiply(interestRate);
+    }
+
+
+    
 
 
     @Override
     public boolean deposit(double value) {
-        double amountTemp = getAmount();
-        amountTemp += value;
-        setAmount(amountTemp);
-        double incomeTemp = this.inccome.doubleValue();
-        incomeTemp += (getAmount() * 0.05);
-        this.inccome = BigDecimal.valueOf(incomeTemp);
-        return true;
+        if(value > 0){
+            double amountTemp = getAmount();
+            amountTemp += value;
+            setAmount(amountTemp);
+            // double incomeTemp = this.inccome.doubleValue();
+            BigDecimal incomeTemp = BigDecimal.valueOf(value);
+            this.inccome =  this.inccome.add(investment(incomeTemp));
+            return true;
+        }else{
+            throw new IllegalArgumentException("Valor inválido");   
+        }
     }
         
     
@@ -37,56 +47,60 @@ public class SavingsAccount extends Account {
     @Override
     public boolean withdraw(double value) {
         if(getAmount() + this.inccome.doubleValue() >= value){
-            if (getClient() instanceof ClientePF){
-                double amountTemp = getAmount();
-                amountTemp -= value;
-                setAmount(amountTemp);
-            }else if ( getClient() instanceof ClientePJ){
-                double amountTemp = getAmount();
-                amountTemp -= value + (value * 0.05);
-                setAmount( amountTemp);
-
-            }
+            double amountTemp = getAmount();
+            amountTemp -= value;
+            setAmount(amountTemp);
             return true;
         }else{
             System.out.println("Saldo insuficiente");
             return false;
         }
     }
-
-    @Override
-    public boolean endAccount() {
-        setAmount(0.0);
-        this.inccome = BigDecimal.valueOf(0);
-        return true;
-    }
-
+    
     @Override
     public boolean transfer( long toAccount  , double value) {
-
+        
         if(toAccount != 0){
             if(getAmount() < value){
-                System.out.println("Saldo insuficiente");
+                throw new IllegalArgumentException("Saldo insuficiente");
             }else{
-                if( getClient() instanceof ClientePJ){
-                    double amountTemp = getAmount();
-                    amountTemp -= (value + value*0.05);
-                    setAmount(amountTemp);
-                }else if(getClient() instanceof ClientePF){
-                    double amountTemp = getAmount();
-                    amountTemp -= value;
-                    setAmount(amountTemp);
-                }
+                double amountTemp = getAmount();
+                amountTemp -= (value + value*0.05);
+                setAmount(amountTemp);
+                return true;
             }
-            return true;
         }else{
-            System.out.println("Conta não encontrada");
-            return false;
+            throw new IllegalArgumentException("Conta inválida");
         }
+    }
+    
+    
+    public String calulateIncome(){
+        return "R$ " + this.inccome.toString();
     }
 
     public String totalBalance(){
         return "Saldo: " + getAmount() + " | Rendimento: " + this.inccome + " | Total: " + (getAmount() + this.inccome.doubleValue());
     }
 
+
+
+    @Override
+    public boolean openAccount() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    @Override
+    public boolean endAccount() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+
+    //TODO: criar toString
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return super.toString();
+    }
 }
