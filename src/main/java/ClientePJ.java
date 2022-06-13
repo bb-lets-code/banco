@@ -9,4 +9,10 @@ public class ClientePJ extends Client{
     public String getCnpj() {
         return cnpj;
     }
+
+    @Override
+    public String toString() {
+        return "Nome: "  + getFullName() + "\n" +
+        "CNPJ: " + getCnpj() + "\n";
+    }
 }

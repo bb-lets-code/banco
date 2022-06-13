@@ -11,4 +11,10 @@ public class ClientePF extends Client{
     public String getCpf() {
         return cpf;
     }
+
+    @Override
+    public String toString() {
+        return "Nome: "  + getFullName() + "\n" +
+                "CNPJ: " + getCpf() + "\n";
+    }
 }

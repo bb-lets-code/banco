@@ -11,5 +11,10 @@ abstract class Client{
 
     public String getFullName(){
         return fullName;
-    }    
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

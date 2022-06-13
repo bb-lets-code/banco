@@ -88,13 +88,8 @@ public class SavingsAccount extends Account {
                 " | Total: " + (bigDecimalAmount.add(this.income).doubleValue());
     }
 
-
-
-    
     @Override
     public String toString() {
-        
-
         return totalBalance();
     }
 }
