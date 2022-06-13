@@ -1,5 +1,4 @@
 public class InvestimentAccount extends Account {
-    public static final Double INCOME_RATE = 0.005;
     public static final Double INCOME_RATE_PJ = 0.02;
     public static final Double RATE_PJ = 0.005;
     private Double income;
@@ -29,9 +28,9 @@ public class InvestimentAccount extends Account {
 
     public void calculateIncome(){
         if(getClient() instanceof ClientePF){
-            this.income += (getAmount() * INCOME_RATE);
+            this.income += (getAmount() * getTransferWithdrawTax());
         } else if(getClient() instanceof ClientePJ) {
-            this.income += (getAmount() * INCOME_RATE) + (getAmount() * INCOME_RATE_PJ);
+            this.income += (getAmount() * getTransferWithdrawTax()) + (getAmount() * INCOME_RATE_PJ);
         }
     }
 
