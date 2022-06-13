@@ -11,10 +11,6 @@ public class InvestimentAccount extends Account {
         return income;
     }
 
-    public void setIncome(Double revenue) {
-        this.income = revenue;
-    }
-
     @Override
     public boolean deposit(double value) {
        invest(value);
