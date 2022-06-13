@@ -25,13 +25,13 @@ abstract class Account {
     }
     
 
-    public abstract boolean openAccount();
+    // public abstract boolean openAccount();
         
-    public abstract boolean transfer( long account , double value);
+    public abstract boolean transfer( Account toAccount , double value);
     
     public abstract boolean deposit(double value);
 
     public abstract boolean withdraw(double value);
 
-    public abstract boolean endAccount();
+    // public abstract boolean endAccount();
 }
