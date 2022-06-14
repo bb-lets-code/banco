@@ -1,12 +1,14 @@
 public class ClientePF extends Client{
-    String cpf = "";
+    private String cpf;
 
     public ClientePF(String fullName, String cpf) {
         super(fullName);
-        if(cpf.equals("")){
+        if (cpf.equals("")) {
             throw new IllegalArgumentException("CPF inválido");
         }
         this.cpf = cpf;
     }
-    
+    public String getCpf() {
+        return cpf;
+    }
 }
