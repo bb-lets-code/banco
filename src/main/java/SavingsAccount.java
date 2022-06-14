@@ -1,7 +1,7 @@
 import java.math.BigDecimal;
 
 public class SavingsAccount extends Account {
-    private BigDecimal inccome;
+    private BigDecimal income;
     private final BigDecimal interestRate = BigDecimal.valueOf(0.005);
 
 
@@ -11,7 +11,7 @@ public class SavingsAccount extends Account {
             throw new IllegalArgumentException("Cliente PJ não pode ter conta de poupança");
         }
 
-        this.inccome = BigDecimal.valueOf(0);
+        this.income = BigDecimal.valueOf(0);
         
     }
 
@@ -28,7 +28,7 @@ public class SavingsAccount extends Account {
             amountTemp = amountTemp.add(BigDecimal.valueOf(value));
             setAmount(amountTemp.doubleValue());
             BigDecimal incomeTemp = BigDecimal.valueOf(value);
-            this.inccome =  this.inccome.add(investment(incomeTemp));
+            this.income =  this.income.add(investment(incomeTemp));
             return true;
         }else{
             throw new IllegalArgumentException("Valor inválido");   
@@ -39,7 +39,7 @@ public class SavingsAccount extends Account {
 
     @Override
     public boolean withdraw(double value) {
-        if(getAmount() + this.inccome.doubleValue() >= value){
+        if(getAmount() + this.income.doubleValue() >= value){
             double amountTemp = getAmount();
             amountTemp -= value;
             setAmount(amountTemp);
@@ -68,12 +68,12 @@ public class SavingsAccount extends Account {
     }
     
     
-    public String calulateIncome(){
-        return "R$ " + this.inccome.toString();
+    public String calculateIncome(){
+        return "R$ " + this.income.toString();
     }
 
     private String totalBalance(){
-        return "N° da Conta: "+ this.getNumber() +" Saldo: " + getAmount() + " | Rendimento: " + this.inccome + " | Total: " + (getAmount() + this.inccome.doubleValue());
+        return "N° da Conta: "+ this.getNumber() +" Saldo: " + getAmount() + " | Rendimento: " + this.income + " | Total: " + (getAmount() + this.income.doubleValue());
     }
 
 
