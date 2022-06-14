@@ -24,7 +24,8 @@ public class CurrentAccount extends Account {
         }
     }
     @Override
-    public boolean transfer( long toAccount  , double value) {
+    public boolean transfer( Account toAccountObj  , double value) {
+        long toAccount = toAccountObj.getNumber();
         if(toAccount != 0){
             if(getAmount() < value){
                 System.out.println("Saldo insuficiente");

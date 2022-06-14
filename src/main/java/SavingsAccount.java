@@ -1,88 +1,100 @@
+import java.math.BigDecimal;
+
 public class SavingsAccount extends Account {
-    private double inccome;
+    private BigDecimal income;
+    private final BigDecimal interestRate = BigDecimal.valueOf(0.005);
 
 
     public SavingsAccount(Client client, long number) {
         super( number, client);
+        if( client instanceof ClientePJ ) 
+            throw new IllegalArgumentException(
+                "Cliente PJ não pode ter conta de poupança"
+            );
+        else this.income = BigDecimal.valueOf(0);        
     }
+
+
+    private BigDecimal investment(BigDecimal value) {
+        return value.multiply(interestRate); // calcula juros
+    }
+
+
     @Override
-    public boolean openAccount() {
-        if(getClient() instanceof ClientePF){
-            this.inccome = 0.0;
-            setAmount(0.0);
+    public boolean deposit(double valueDeposit) {
+        if(valueDeposit > 0){
+            setAmount(
+                BigDecimal.valueOf(getAmount()) //Valor atual do saldo
+                .add(BigDecimal.valueOf(valueDeposit)) //Adicionando o valor do depósito
+                .doubleValue() //Convertendo para double
+            );
+            this.income =  this.income.add( //Adicionando o valor do juros
+                investment(BigDecimal.valueOf(valueDeposit)) //Calculando o valor do rendimento
+            );
+            
             return true;
-        }else if(getClient() instanceof ClientePJ){
-            System.out.println("Não é possível abrir Conta Poupança para Pessoa Jurídica");
-            return false;
+        }else{
+            throw new IllegalArgumentException("Valor inválido");   
         }
-        return false;
-    }
-
-
-    @Override
-    public boolean deposit(double value) {
-        double amountTemp = getAmount();
-        amountTemp += value;
-        setAmount(amountTemp);
-        this.inccome += (getAmount() * 0.05);
-        return true;
     }
         
     
 
     @Override
     public boolean withdraw(double value) {
-        if(getAmount() + this.inccome >= value){
-            if (getClient() instanceof ClientePF){
-                double amountTemp = getAmount();
-                amountTemp -= value;
-                setAmount(amountTemp);
-            }else if ( getClient() instanceof ClientePJ){
-                double amountTemp = getAmount();
-                amountTemp -= value + (value * 0.05);
-                setAmount( amountTemp);
+        BigDecimal valueDeposit = BigDecimal.valueOf(value); //Valor do saque
+        BigDecimal totalBalance = BigDecimal.valueOf(getAmount()).add(this.income); //Saldo total
 
-            }
-            return true;
+        if(totalBalance.compareTo(valueDeposit) >= 0){ //Verifica se o saldo é maior ou igual ao valor do saque
+            
+            setAmount(totalBalance.subtract(valueDeposit).doubleValue()); //Atualizando o saldo
+            return true; 
         }else{
-            System.out.println("Saldo insuficiente");
-            return false;
+            throw new IllegalArgumentException("Saldo insuficiente");
         }
     }
-
+    
     @Override
-    public boolean endAccount() {
-        setAmount(0.0);
-        this.inccome = 0.0;
-        return true;
-    }
-
-    @Override
-    public boolean transfer( long toAccount  , double value) {
-
-        if(toAccount != 0){
-            if(getAmount() < value){
-                System.out.println("Saldo insuficiente");
+    public boolean transfer( Account toAccount  , double value) {
+        BigDecimal valueDeposit = BigDecimal.valueOf(value); //Valor do depósito
+        BigDecimal totalBalance = BigDecimal.valueOf(getAmount()).add(this.income); //Saldo total
+        if(toAccount != null){ //Verificando se a conta de destino existe
+            if(totalBalance.compareTo(valueDeposit) <= 0){ //Verificando se o saldo é suficiente
+                throw new IllegalArgumentException("Saldo insuficiente");
             }else{
-                if( getClient() instanceof ClientePJ){
-                    double amountTemp = getAmount();
-                    amountTemp -= (value + value*0.05);
-                    setAmount(amountTemp);
-                }else if(getClient() instanceof ClientePF){
-                    double amountTemp = getAmount();
-                    amountTemp -= value;
-                    setAmount(amountTemp);
-                }
+                setAmount(
+                    totalBalance //Valor atual do saldo
+                    .subtract(valueDeposit) //Subtraindo o valor do depósito
+                    .doubleValue() //Convertendo para double
+                );
+                toAccount.deposit(value); //Adicionando o valor do depósito na conta de destino
+                return true;
             }
-            return true;
         }else{
-            System.out.println("Conta não encontrada");
-            return false;
+            throw new IllegalArgumentException("Conta inválida"); //Conta de destino não existe
         }
     }
+    
+    
+    // public String calculateIncome(){
+    //     return "R$ " + this.income.toString();
+    // }
 
-    public String totalBalance(){
-        return "Saldo: " + getAmount() + " | Rendimento: " + this.inccome + " | Total: " + (getAmount() + this.inccome);
+    private String totalBalance(){
+        BigDecimal bigDecimalAmount = BigDecimal.valueOf(getAmount());
+        return "N° da Conta: "+ this.getNumber() +
+                " Saldo: " + getAmount() + 
+                " | Rendimento: " + this.income + 
+                " | Total: " + (bigDecimalAmount.add(this.income).doubleValue());
     }
 
+
+
+    
+    @Override
+    public String toString() {
+        
+
+        return totalBalance();
+    }
 }
