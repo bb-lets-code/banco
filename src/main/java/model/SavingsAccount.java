@@ -82,18 +82,11 @@ public class SavingsAccount extends Account {
     //     return "R$ " + this.income.toString();
     // }
 
-    private String totalBalance(){
-        BigDecimal bigDecimalAmount = BigDecimal.valueOf(getAmount());
-        return "N° da Conta: "+ this.getNumber() +
-                " Saldo: " + getAmount() +
-                " | Rendimento: " + this.income +
-                " | Total: " + (bigDecimalAmount.add(this.income).doubleValue());
-    }
 
 
     @Override
     public String toString(){
-        return  "=== Conta Investimento === \n" +
+        return  "=== Conta Poupança === \n" +
                 "Nome do Cliente - " + getClient().getFullName() + "\n" +
                 "Número da Conta - " + getNumber() + "\n" +
                 "Dinheiro investido - R$" + getAmount() + "\n" +
