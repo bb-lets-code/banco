@@ -1,3 +1,5 @@
+package model;
+
 public class ClientePF extends Client{
     private String cpf;
 

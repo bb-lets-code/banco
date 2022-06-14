@@ -1,3 +1,5 @@
+package model;
+
 public class InvestimentAccount extends Account {
     public static final Double INCOME_RATE_PJ = 0.02;
     public static final Double RATE_PJ = 0.005;

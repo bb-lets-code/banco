@@ -1,3 +1,5 @@
+package model;
+
 public class ClientePJ extends Client{
     private String cnpj;
 

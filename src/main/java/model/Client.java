@@ -1,3 +1,5 @@
+package model;
+
 abstract class Client{
     private String fullName;
 

@@ -1,3 +1,5 @@
+package model;
+
 public abstract class Account {
     private long number;
     private Client client;
