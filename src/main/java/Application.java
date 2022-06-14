@@ -52,13 +52,13 @@ public class Application {
         int opcao;
         do {
             System.out.println("##################################################");
-            System.out.println("###### - Banco BB Lets-Code seja bem vindo - ######");
+            System.out.println("###### - Banco BB Lets-Code Seja Bem Vindo - ######");
             System.out.println("##################################################");
             System.out.println("###### -     Opções Disponíveis           - ######");
             System.out.println("###### -     1 - Abri Conta               - ######");
-            System.out.println("###### -     2 - listar Contas            - ######");
+            System.out.println("###### -     2 - Listar Contas            - ######");
             System.out.println("###### -     3 - Realizar Operação        - ######");
-            System.out.println("###### -     4 - encerrar                 - ######");
+            System.out.println("###### -     4 - Encerrar                 - ######");
             System.out.println("##################################################");
             System.out.println("Escolha uma das opções acima: ");
             opcao = scanner.nextInt();
