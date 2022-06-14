@@ -24,11 +24,10 @@ public class CurrentAccount extends Account {
         }
     }
     @Override
-    public boolean transfer( Account toAccountObj  , double value) {
-        long toAccount = toAccountObj.getNumber();
-        if(toAccount != 0){
+    public boolean transfer( Account toAccount  , double value) {
+        if(toAccount != null){
             if(getAmount() < value){
-                System.out.println("Saldo insuficiente");
+                throw new IllegalArgumentException("Saldo insuficiente");
             }else{
                 if( getClient() instanceof ClientePF){
                     setAmount(getAmount() - value);
@@ -37,11 +36,18 @@ public class CurrentAccount extends Account {
                     setAmount( getAmount() - valueTax);
                 }
             }
+            toAccount.deposit(value);
             return true;
         }else{
-            System.out.println("Conta não encontrada");
-            return false;
+            throw new IllegalArgumentException("Conta inválida");
         }
+    }
+    @Override
+    public String toString(){
+        return  "=== Conta Corrente === \n" +
+                "Nome do Cliente - " + getClient().getFullName() + "\n" +
+                "Número da Conta - " + getNumber() + "\n" +
+                "Saldo Disponível - R$" + getAmount() + "\n";
     }
 }
 
