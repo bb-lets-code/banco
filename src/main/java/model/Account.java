@@ -1,6 +1,8 @@
 package model;
 
 public abstract class Account {
+
+    private static long numberSequence = 999l;
     private long number;
     private Client client;
     private double amount;
@@ -36,4 +38,18 @@ public abstract class Account {
     public abstract boolean deposit(double value);
 
     public abstract boolean withdraw(double value);
+
+    public static long getNumberSequence(){
+        incrementNumberSequence();
+        return numberSequence;
+    }
+
+    private static void incrementNumberSequence(){
+        numberSequence++;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

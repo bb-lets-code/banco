@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Objects;
 public class CurrentAccount extends Account {
 
     public CurrentAccount(Client client, long number) {
@@ -33,9 +34,11 @@ public class CurrentAccount extends Account {
             }else{
                 if( getClient() instanceof ClientePF){
                     setAmount(getAmount() - value);
+                    toAccount.deposit(value);
                 }else if(getClient() instanceof ClientePJ){
                     double valueTax = value * (1 + getTransferWithdrawTax());
                     setAmount( getAmount() - valueTax);
+                    toAccount.deposit(value);
                 }
             }
             toAccount.deposit(value);

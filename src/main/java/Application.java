@@ -1,5 +1,11 @@
 import model.Client;
+import model.Account;
+import model.ClientePF;
+import model.ClientePJ;
+import service.AccountFactory;
+import service.AccountService;
 import service.ClientService;
+import service.MenuService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +21,7 @@ public class Application {
 
 
         bemVindo();
-        optionMenu = menuPrincipal();
-        CriarConta();
-        imprimir();
+        menuPrincipal();
 
 
     }
@@ -40,7 +44,7 @@ public class Application {
         }
     }
 
-    public static int menuPrincipal(){
+    public static void menuPrincipal(){
         List<Integer> opcoes = new ArrayList<Integer>();
         opcoes.add(1);
         opcoes.add(2);
@@ -56,6 +60,7 @@ public class Application {
             System.out.println("###### -     3 - Realizar Operação        - ######");
             System.out.println("###### -     4 - encerrar                 - ######");
             System.out.println("##################################################");
+            System.out.println("Escolha uma das opções acima: ");
             opcao = scanner.nextInt();
             scanner.nextLine();
             if(opcoes.contains(opcao)){
@@ -66,8 +71,6 @@ public class Application {
                 System.out.println("Opção invalida tente novamente");
             }
         }while (opcao != 4);
-
-        return opcao;
     }
 
     private static void selectedMenu(int opcao){
@@ -79,12 +82,10 @@ public class Application {
                 listarContas();
                 break;
             case 3:
-                realizarOperacoesContas();
+                AccountService.operacaoAccount(accounts);
                 break;
-            case 4:
-                System.exit(0);
             default:
-                menuPrincipal();
+                System.exit(0);
         }
     }
 
@@ -103,13 +104,15 @@ public class Application {
         int opcao;
         do {
             System.out.println("##################################################");
-            System.out.println("###### -     Banco BB Lets-Code seja bem vindo     - ######");
+            System.out.println("###### - Banco BB Lets-Code => Abrir conta - #####");
             System.out.println("##################################################");
             System.out.println("digite 1 para conta corrente ou 2 para investimento");
             opcao = scanner.nextInt();
             scanner.nextLine();
             if(!opcoes.contains(opcao)){
                 System.out.println("tipo de conta escolhido não disponível! Tente novamente.");
+            }else {
+                criarConta(opcao);
             }
 
         }while (!opcoes.contains(opcao));
@@ -123,28 +126,32 @@ public class Application {
         int opcao;
         do {
             System.out.println("##################################################");
-            System.out.println("###### -     Banco BB Lets-Code seja bem vindo     - ######");
+            System.out.println("###### - Banco BB Lets-Code => Abrir conta - #####");
             System.out.println("##################################################");
             System.out.println("digite 1 para conta corrente, 2 para conta investimento ou 3 para Poupança");
             opcao = scanner.nextInt();
             scanner.nextLine();
             if(!opcoes.contains(opcao)){
                 System.out.println("tipo de conta escolhido não disponível! Tente novamente.");
+            }else {
+                criarConta(opcao);
             }
 
         }while (!opcoes.contains(opcao));
     }
 
     public static void criarConta(int tipoConta){
-
+        accounts.add(AccountFactory.openAccount(tipoConta, client));
+        dadosContaCriada();
     }
+
 
     public static void listarContas(){
         imprimir();
         System.out.println("Contas encontradas: ");
         System.out.println("######################################################");
         for (Account account: accounts) {
-            account.toString();
+            System.out.println(account.toString());
             System.out.println("---------------------------------------------------");
         }
         System.out.println("#########################################################");
@@ -154,7 +161,9 @@ public class Application {
         System.out.println(client.toString());
     }
 
-    public static void realizarOperacoesContas(){
-
+    public static void dadosContaCriada(){
+        System.out.println("Conta Criada com sucesso");
+        System.out.println(accounts.get(accounts.size() - 1).toString());
+        System.out.println("Voltando para o menu principal");
     }
 }
