@@ -41,8 +41,8 @@ public class ClientService {
     public static double lerValue(String mensagem){
         double value;
         do {
-            System.out.println("Digite o valor para " + mensagem);
-            value = scanner.nextInt();
+            System.out.println("Digite o valor para" + mensagem);
+            value = scanner.nextDouble();
             scanner.nextLine();
             if(value < 0){
                 System.out.println("Valor Invalido. Tente novamente");
