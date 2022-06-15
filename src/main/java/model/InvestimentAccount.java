@@ -1,7 +1,9 @@
+package model;
+
 public class InvestimentAccount extends Account {
     public static final Double INCOME_RATE_PJ = 0.02;
     public static final Double RATE_PJ = 0.005;
-    private Double income;
+    private Double income = 0.0;
 
     public InvestimentAccount(Client client, long number) {
         super( number, client);
@@ -57,10 +59,13 @@ public class InvestimentAccount extends Account {
 
     @Override
     public boolean transfer( Account toAccount  , double value) {
+        boolean isWithdraw;
         if(toAccount.getNumber() != 0){
-            withdrawMoney(value);
-            toAccount.deposit(value);
-            return true;
+            isWithdraw = withdrawMoney(value);
+            if(isWithdraw){
+                toAccount.deposit(value);
+            }
+            return isWithdraw;
         } else {
             System.out.println("Conta não encontrada");
             return false;
