@@ -46,7 +46,7 @@ public class MenuService {
                 System.out.println("#################### - 1 - Sacar - #####################");
                 System.out.println("#################### - 2 - Investir/depositar - ########");
                 System.out.println("#################### - 3 - Transferir - ################");
-                System.out.println("#################### - 4 - visualizar dados - ##########");
+                System.out.println("#################### - 4 - Visualizar dados - ##########");
                 System.out.println("#################### - 5 - Voltar ao menu anterior - ###");
                 System.out.println("########################################################");
                 System.out.print("Escolha uma opção acima: ");

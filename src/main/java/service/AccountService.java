@@ -53,16 +53,31 @@ public class AccountService {
 
     private static void transfer(Account account, List<Account> accounts){
         if (accounts.size() > 1) {
-            Account toAccount;
-            do {
-                toAccount = MenuService.selectAccount(accounts);
-                if (toAccount.equals(account)) {
-                    System.out.println("A conta destino é a mesma conta de origem, selecione outra conta");
+                if(account.getAmount() > 0){ // Verifica se há saldo na conta
+                    Account toAccount;
+                    do {
+                        toAccount = MenuService.selectAccount(accounts);
+                        if (toAccount.equals(account)) {
+                            System.out.println("A conta destino é a mesma conta de origem, selecione outra conta");
+                        }
+                    } while (toAccount.equals(account));
+                    
+                    
+                    boolean success = false;
+                    do {
+                        try{
+
+                            success = account.transfer(toAccount, ClientService.lerValue("Transferir")); 
+                        }catch (Exception e){
+                            System.out.println(e.getMessage());
+                            System.out.println("Tente novamente.");
+                            success = false;
+                        }
+                    } while (success == false);
                 }
-            } while (toAccount.equals(account));
-
-
-            account.transfer(toAccount, ClientService.lerValue("Transferir"));
+                else{ 
+                    System.out.println("Você não tem saldo suficiente para transferir");
+                }
         }else {
             System.out.println("Sem contas cadastradas para realizar a transferência");
         }
