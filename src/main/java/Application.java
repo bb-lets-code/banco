@@ -52,13 +52,13 @@ public class Application {
         int opcao;
         do {
             System.out.println("##################################################");
-            System.out.println("###### - Banco BB Lets-Code seja bem vindo - ######");
+            System.out.println("###### - Banco BB Lets-Code Seja Bem Vindo - ######");
             System.out.println("##################################################");
             System.out.println("###### -     Opções Disponíveis           - ######");
             System.out.println("###### -     1 - Abri Conta               - ######");
-            System.out.println("###### -     2 - listar Contas            - ######");
+            System.out.println("###### -     2 - Listar Contas            - ######");
             System.out.println("###### -     3 - Realizar Operação        - ######");
-            System.out.println("###### -     4 - encerrar                 - ######");
+            System.out.println("###### -     4 - Encerrar                 - ######");
             System.out.println("##################################################");
             System.out.println("Escolha uma das opções acima: ");
             opcao = scanner.nextInt();
@@ -106,11 +106,11 @@ public class Application {
             System.out.println("##################################################");
             System.out.println("###### - Banco BB Lets-Code => Abrir conta - #####");
             System.out.println("##################################################");
-            System.out.println("digite 1 para conta corrente ou 2 para investimento");
+            System.out.println("Digite 1 para conta corrente ou 2 para investimento");
             opcao = scanner.nextInt();
             scanner.nextLine();
             if(!opcoes.contains(opcao)){
-                System.out.println("tipo de conta escolhido não disponível! Tente novamente.");
+                System.out.println("Tipo de conta escolhido não disponível! Tente novamente.");
             }else {
                 criarConta(opcao);
             }
@@ -128,11 +128,11 @@ public class Application {
             System.out.println("##################################################");
             System.out.println("###### - Banco BB Lets-Code => Abrir conta - #####");
             System.out.println("##################################################");
-            System.out.println("digite 1 para conta corrente, 2 para conta investimento ou 3 para Poupança");
+            System.out.println("Digite 1 para conta corrente, 2 para conta investimento ou 3 para Poupança");
             opcao = scanner.nextInt();
             scanner.nextLine();
             if(!opcoes.contains(opcao)){
-                System.out.println("tipo de conta escolhido não disponível! Tente novamente.");
+                System.out.println("Tipo de conta escolhido não disponível! Tente novamente.");
             }else {
                 criarConta(opcao);
             }

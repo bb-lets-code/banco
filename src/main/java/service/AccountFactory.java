@@ -2,8 +2,6 @@ package service;
 
 import model.*;
 
-import java.util.Random;
-
 public class AccountFactory {
     final static int typeAccountCurrent = 1;
     final static int typeAccountInvestiment = 2;
