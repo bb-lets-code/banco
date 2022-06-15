@@ -132,7 +132,7 @@ public class Application {
             opcao = scanner.nextInt();
             scanner.nextLine();
             if(!opcoes.contains(opcao)){
-                System.out.println("tipo de conta escolhido não disponível! Tente novamente.");
+                System.out.println("Tipo de conta escolhido não disponível! Tente novamente.");
             }else {
                 criarConta(opcao);
             }
