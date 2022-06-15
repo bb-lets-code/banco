@@ -62,7 +62,8 @@ public class SavingsAccount extends Account {
         BigDecimal totalBalance = BigDecimal.valueOf(getAmount()).add(this.income); //Saldo total
         if(toAccount != null){ //Verificando se a conta de destino existe
             if(totalBalance.compareTo(valueDeposit) <= 0){ //Verificando se o saldo é suficiente
-                throw new IllegalArgumentException("Saldo insuficiente");
+                System.out.println("Saldo insuficiente.");
+                // throw new IllegalArgumentException("Saldo insuficiente");
             }else{
                 setAmount(
                         totalBalance //Valor atual do saldo
@@ -75,6 +76,7 @@ public class SavingsAccount extends Account {
         }else{
             throw new IllegalArgumentException("Conta inválida"); //Conta de destino não existe
         }
+        return false;
     }
 
 
