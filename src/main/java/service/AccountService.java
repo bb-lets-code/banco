@@ -1,6 +1,7 @@
 package service;
 
 import model.Account;
+import model.Client;
 import model.InvestimentAccount;
 
 import java.util.List;
@@ -13,21 +14,29 @@ public class AccountService {
     final private static int visualization = 4;
 
     public static void operacaoAccount(List<Account> accounts){
-        Account account = MenuService.selectAccount(accounts);
-        int operacao = MenuService.menuOperacaoContas(account.getNumber());
-        switch (operacao) {
-            case withdraw:
-                withdraw(account);
-                break;
-            case depositInvestiment:
-                depositInvestiment(account);
-                break;
-            case transfer:
-                transfer(account, accounts);
-                break;
-            case visualization:
-            default:
-                exibirInformacoes(account);
+        if(accounts.size() > 0) {
+            Account account = MenuService.selectAccount(accounts);
+            int operacao;
+            do {
+
+                operacao = MenuService.menuOperacaoContas(account.getNumber());
+                switch (operacao) {
+                    case withdraw:
+                        withdraw(account);
+                        break;
+                    case depositInvestiment:
+                        depositInvestiment(account);
+                        break;
+                    case transfer:
+                        transfer(account, accounts);
+                        break;
+                    case visualization:
+                    default:
+                        exibirInformacoes(account);
+                }
+            }while ( operacao != 5);
+        }else {
+            System.out.println("Você não tem uma conta em nosso banco, abra uma conta primeiro");
         }
     }
 
@@ -63,6 +72,23 @@ public class AccountService {
 
     private static void exibirInformacoes(Account account){
         System.out.println(account.toString());
+    }
+
+    public static void listarContas(Client client, List<Account> accounts){
+        ClientService.imprimir(client);
+        System.out.println("Contas encontradas: ");
+        System.out.println("######################################################");
+        for (Account account: accounts) {
+            System.out.println(account.toString());
+            System.out.println("---------------------------------------------------");
+        }
+        System.out.println("#########################################################");
+    }
+
+    public static void dadosContaCriada(Account account){
+        System.out.println("Conta Criada com sucesso");
+        System.out.println(account.toString());
+        System.out.println("Voltando para o menu principal");
     }
 
 }

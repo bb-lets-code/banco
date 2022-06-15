@@ -1,5 +1,9 @@
 package service;
 
+import model.Client;
+import model.ClientePF;
+import model.ClientePJ;
+
 import java.util.Scanner;
 
 public class ClientService {
@@ -46,6 +50,19 @@ public class ClientService {
         }while (value <  0);
 
         return value;
+    }
+
+    static public Client criarCliente(){
+        int tipo = lerTipoCliente();
+        if(tipo == 1){
+            return new ClientePF(validaString("o nome do cliente", 5), validaString("CPF", 11));
+        }else{
+            return new ClientePJ(validaString("o nome do cliente", 5), validaString("cnpj", 14));
+        }
+    }
+
+    public static void imprimir(Client client){
+        System.out.println(client.toString());
     }
 
 

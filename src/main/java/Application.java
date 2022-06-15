@@ -28,19 +28,10 @@ public class Application {
 
     public static void bemVindo(){
         System.out.println("##################################################");
-        System.out.println("###### - Banco BB Lets-Code seja bem vindo - ######");
+        System.out.println("###### - Banco BB Lets-Code Seja Bem Vindo - ######");
         System.out.println("##################################################");
         if (Objects.isNull(client)){
-            criarCliente();
-        }
-    }
-
-    static public void criarCliente(){
-        int tipo = ClientService.lerTipoCliente();
-        if(tipo == 1){
-            client = new ClientePF(ClientService.validaString("CPF", 11), ClientService.validaString("Digite no nome do cliente", 5));
-        }else{
-            client = new ClientePJ(ClientService.validaString("cnpj", 14), ClientService.validaString("Digite o  nome do cliente", 5));
+            client = ClientService.criarCliente();
         }
     }
 
@@ -79,7 +70,7 @@ public class Application {
                 menuConta();
                 break;
             case 2:
-                listarContas();
+                AccountService.listarContas(client, accounts);
                 break;
             case 3:
                 AccountService.operacaoAccount(accounts);
@@ -142,28 +133,8 @@ public class Application {
 
     public static void criarConta(int tipoConta){
         accounts.add(AccountFactory.openAccount(tipoConta, client));
-        dadosContaCriada();
+        AccountService.dadosContaCriada(accounts.get(accounts.size() - 1));
     }
 
 
-    public static void listarContas(){
-        imprimir();
-        System.out.println("Contas encontradas: ");
-        System.out.println("######################################################");
-        for (Account account: accounts) {
-            System.out.println(account.toString());
-            System.out.println("---------------------------------------------------");
-        }
-        System.out.println("#########################################################");
-    }
-
-    public static void imprimir(){
-        System.out.println(client.toString());
-    }
-
-    public static void dadosContaCriada(){
-        System.out.println("Conta Criada com sucesso");
-        System.out.println(accounts.get(accounts.size() - 1).toString());
-        System.out.println("Voltando para o menu principal");
-    }
 }

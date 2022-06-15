@@ -3,8 +3,8 @@ package model;
 public class ClientePJ extends Client{
     private String cnpj;
 
-    public ClientePJ(String cnpj, String nomeCliente){
-        super(nomeCliente);
+    public ClientePJ(String fullName, String cnpj){
+        super(fullName);
         this.cnpj = cnpj;
     }
 
