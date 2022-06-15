@@ -45,7 +45,7 @@ public class ClientService {
             value = scanner.nextDouble();
             scanner.nextLine();
             if(value < 0){
-                System.out.println("Valor Invalido. Tente novamente");
+                System.out.println("Valor Inválido. Tente novamente");
             }
         }while (value <  0);
 
