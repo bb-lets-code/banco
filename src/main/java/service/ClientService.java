@@ -32,7 +32,7 @@ public class ClientService {
             tipo = scanner.nextInt();
             scanner.nextLine();
             if(tipo != 1 && tipo != 2){
-                System.out.println("tipo Invalido tente novamente");
+                System.out.println("Tipo Invalido. Tente novamente");
             }
         }while (tipo != 1 && tipo != 2);
         return tipo;
@@ -45,7 +45,7 @@ public class ClientService {
             value = scanner.nextDouble();
             scanner.nextLine();
             if(value < 0){
-                System.out.println("valor Invalido tente novamente");
+                System.out.println("Valor Inválido. Tente novamente");
             }
         }while (value <  0);
 
