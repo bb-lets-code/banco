@@ -62,9 +62,18 @@ public class AccountService {
                     System.out.println("A conta destino é a mesma conta de origem, selecione outra conta");
                 }
             } while (toAccount.equals(account));
+            
+            
+            boolean success = false;
+            do {
+                try{
 
-
-            account.transfer(toAccount, ClientService.lerValue("Transferir"));
+                    success = account.transfer(toAccount, ClientService.lerValue("Transferir"));
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                    success = false;
+                }
+            } while (success == false);
         }else {
             System.out.println("Sem contas cadastradas para realizar a transferência");
         }
