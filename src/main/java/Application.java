@@ -19,11 +19,8 @@ public class Application {
     public static void main(String[] args) {
         int optionMenu;
 
-
         bemVindo();
         menuPrincipal();
-
-
     }
 
     public static void bemVindo(){
@@ -124,7 +121,7 @@ public class Application {
             scanner.nextLine();
             if(!opcoes.contains(opcao)){
                 System.out.println("Tipo de conta escolhido não disponível! Tente novamente.");
-            }else {
+            } else {
                 criarConta(opcao);
             }
 
@@ -135,6 +132,4 @@ public class Application {
         accounts.add(AccountFactory.openAccount(tipoConta, client));
         AccountService.dadosContaCriada(accounts.get(accounts.size() - 1));
     }
-
-
 }

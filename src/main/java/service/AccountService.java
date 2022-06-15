@@ -6,7 +6,6 @@ import model.InvestimentAccount;
 
 import java.util.List;
 
-
 public class AccountService {
     final private static int withdraw = 1;
     final private static int depositInvestiment = 2;
@@ -18,7 +17,6 @@ public class AccountService {
             Account account = MenuService.selectAccount(accounts);
             int operacao;
             do {
-
                 operacao = MenuService.menuOperacaoContas(account.getNumber());
                 switch (operacao) {
                     case withdraw:
@@ -34,7 +32,7 @@ public class AccountService {
                     default:
                         exibirInformacoes(account);
                 }
-            }while ( operacao != 5);
+            }while (operacao != 5);
         }else {
             System.out.println("Você não tem uma conta em nosso banco, abra uma conta primeiro");
         }
