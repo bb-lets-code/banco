@@ -1,4 +1,6 @@
-abstract class Client{
+package model;
+
+public abstract class Client{
     private String fullName;
 
     public Client(String fullName) {
@@ -11,5 +13,10 @@ abstract class Client{
 
     public String getFullName(){
         return fullName;
-    }    
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

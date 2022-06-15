@@ -1,3 +1,6 @@
+package model;
+
+// import java.util.Objects;
 public class CurrentAccount extends Account {
 
     public CurrentAccount(Client client, long number) {
@@ -24,23 +27,32 @@ public class CurrentAccount extends Account {
         }
     }
     @Override
-    public boolean transfer( long toAccount  , double value) {
-        if(toAccount != 0){
+    public boolean transfer( Account toAccount  , double value) {
+        if(toAccount != null){
             if(getAmount() < value){
-                System.out.println("Saldo insuficiente");
+                throw new IllegalArgumentException("Saldo insuficiente");
             }else{
                 if( getClient() instanceof ClientePF){
                     setAmount(getAmount() - value);
+                    toAccount.deposit(value);
                 }else if(getClient() instanceof ClientePJ){
                     double valueTax = value * (1 + getTransferWithdrawTax());
                     setAmount( getAmount() - valueTax);
+                    toAccount.deposit(value);
                 }
             }
+            toAccount.deposit(value);
             return true;
         }else{
-            System.out.println("Conta não encontrada");
-            return false;
+            throw new IllegalArgumentException("Conta inválida");
         }
+    }
+    @Override
+    public String toString(){
+        return  "=== Conta Corrente === \n" +
+                "Nome do Cliente - " + getClient().getFullName() + "\n" +
+                "Número da Conta - " + getNumber() + "\n" +
+                "Saldo Disponível - R$" + getAmount() + "\n";
     }
 }
 
